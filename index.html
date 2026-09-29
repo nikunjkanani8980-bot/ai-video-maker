@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Video Maker</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b0b0f;
+      color: white;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 25px 18px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #999;
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 8px;
+      font-weight: bold;
+    }
+
+    textarea,
+    select,
+    input {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid #333;
+      background: #17171d;
+      color: white;
+      font-size: 15px;
+    }
+
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      background: #6c5ce7;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    .result {
+      margin-top: 25px;
+      padding: 18px;
+      border-radius: 15px;
+      background: #15151b;
+      display: none;
+    }
+
+    .status {
+      color: #aaa;
+      margin-top: 10px;
+    }
+
+    video {
+      width: 100%;
+      border-radius: 12px;
+      margin-top: 15px;
+      background: black;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1>🎬 AI Video Maker</h1>
+
+    <div class="subtitle">
+      Turn your idea into an AI video
+    </div>
+
+    <label>Video Prompt</label>
+
+    <textarea
+      id="prompt"
+      placeholder="Example: A beautiful girl walking through a futuristic city at night..."
+    ></textarea>
+
+    <label>Duration</label>
+
+    <select id="duration">
+      <option value="5">5 Seconds</option>
+      <option value="10">10 Seconds</option>
+    </select>
+
+    <label>Aspect Ratio</label>
+
+    <select id="ratio">
+      <option value="9:16">9:16 — Reels / Shorts</option>
+      <option value="16:9">16:9 — YouTube</option>
+      <option value="1:1">1:1 — Square</option>
+    </select>
+
+    <button onclick="generateVideo()">
+      🚀 Generate Video
+    </button>
+
+    <div class="result" id="result">
+
+      <h3>Generation Status</h3>
+
+      <div class="status" id="status">
+        Waiting...
+      </div>
+
+      <video id="video" controls style="display:none;"></video>
+
+      <button id="downloadBtn" style="display:none;">
+        ⬇️ Download Video
+      </button>
+
+    </div>
+
+  </div>
+
+  <script>
+
+    function generateVideo() {
+
+      const prompt = document.getElementById("prompt").value.trim();
+      const duration = document.getElementById("duration").value;
+      const ratio = document.getElementById("ratio").value;
+
+      if (!prompt) {
+        alert("Please enter a video prompt.");
+        return;
+      }
+
+      document.getElementById("result").style.display = "block";
+
+      document.getElementById("status").innerText =
+        "Preparing your video request...";
+
+      /*
+        AI VIDEO API WILL BE CONNECTED HERE.
+
+        IMPORTANT:
+        Never put an API key directly inside this HTML file.
+        The API key must stay on a secure backend/server.
+      */
+
+      setTimeout(() => {
+
+        document.getElementById("status").innerText =
+          "AI video API is not connected yet. Next step: connect the video-generation API.";
+
+      }, 1000);
+    }
+
+  </script>
+
+</body>
+</html>
