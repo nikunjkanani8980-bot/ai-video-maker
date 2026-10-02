@@ -41,8 +41,7 @@
     }
 
     textarea,
-    select,
-    input {
+    select {
       width: 100%;
       padding: 14px;
       border-radius: 12px;
@@ -70,8 +69,8 @@
       cursor: pointer;
     }
 
-    button:active {
-      transform: scale(0.98);
+    button:disabled {
+      opacity: 0.6;
     }
 
     .result {
@@ -85,6 +84,7 @@
     .status {
       color: #aaa;
       margin-top: 10px;
+      line-height: 1.5;
     }
 
     video {
@@ -92,6 +92,11 @@
       border-radius: 12px;
       margin-top: 15px;
       background: black;
+    }
+
+    .download {
+      display: none;
+      text-decoration: none;
     }
   </style>
 </head>
@@ -116,13 +121,10 @@
     <label>Duration</label>
 
     <select id="duration">
-  <option value="5">5 Seconds</option>
-  <option value="10">10 Seconds</option>
-  <option value="15">15 Seconds</option>
-  <option value="30">30 Seconds</option>
-  <option value="60">60 Seconds</option>
+      <option value="5">5 Seconds</option>
+      <option value="10">10 Seconds</option>
+      <option value="15">15 Seconds</option>
     </select>
-      
 
     <label>Aspect Ratio</label>
 
@@ -132,7 +134,7 @@
       <option value="1:1">1:1 — Square</option>
     </select>
 
-    <button onclick="generateVideo()">
+    <button id="generateBtn" onclick="generateVideo()">
       🚀 Generate Video
     </button>
 
@@ -144,51 +146,60 @@
         Waiting...
       </div>
 
-      <video id="video" controls style="display:none;"></video>
+      <video
+        id="video"
+        controls
+        style="display:none;"
+      ></video>
 
-      <button id="downloadBtn" style="display:none;">
-        ⬇️ Download Video
-      </button>
+      <a
+        id="downloadBtn"
+        class="download"
+        target="_blank"
+      >
+        <button type="button">
+          ⬇️ Open / Download Video
+        </button>
+      </a>
 
     </div>
 
   </div>
 
+
   <script>
 
-    function generateVideo() {
+    const WORKER_URL =
+      "https://ai-video-backend.nikunjkanani8980.workers.dev";
 
-      const prompt = document.getElementById("prompt").value.trim();
-      const duration = document.getElementById("duration").value;
-      const ratio = document.getElementById("ratio").value;
+
+    async function generateVideo() {
+
+      const prompt =
+        document.getElementById("prompt").value.trim();
+
+      const duration =
+        Number(document.getElementById("duration").value);
+
+      const ratio =
+        document.getElementById("ratio").value;
+
+      const result =
+        document.getElementById("result");
+
+      const status =
+        document.getElementById("status");
+
+      const video =
+        document.getElementById("video");
+
+      const downloadBtn =
+        document.getElementById("downloadBtn");
+
+      const generateBtn =
+        document.getElementById("generateBtn");
+
 
       if (!prompt) {
         alert("Please enter a video prompt.");
         return;
-      }
-
-      document.getElementById("result").style.display = "block";
-
-      document.getElementById("status").innerText =
-        "Preparing your video request...";
-
-      /*
-        AI VIDEO API WILL BE CONNECTED HERE.
-
-        IMPORTANT:
-        Never put an API key directly inside this HTML file.
-        The API key must stay on a secure backend/server.
-      */
-
-      setTimeout(() => {
-
-        document.getElementById("status").innerText =
-          "AI video API is not connected yet. Next step: connect the video-generation API.";
-
-      }, 1000);
-    }
-
-  </script>
-
-</body>
-</html>
